@@ -1,0 +1,9 @@
+<div *ngIf="hero" style="background-color: #EEE; padding: .3em; padding: 0px 0px 8px 8px; border-radius: 4px; margin: 5px">
+    <h2 style="max-width: fit-content;">{{hero.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{hero.id}}</div>
+    <div>
+      <label>name:
+        <input [(ngModel)]="hero.name" placeholder="name"/>
+      </label>
+    </div>
+  </div>

@@ -1,4 +1,4 @@
-<h2>My Items</h2>
+<h2 style="text-align: center;">My Items</h2>
 <ul class="items">
     <li *ngFor="let item of items"
       [class.selected]="item === selectedItem"
@@ -6,13 +6,4 @@
       <span class="badge">{{item.id}}</span> {{item.name}}
     </li>
   </ul>
-<div *ngIf="selectedItem">
-    <h2>{{selectedItem.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{selectedItem.id}}</div>
-    <div>
-        <label>name:<input [(ngModel)]="selectedItem.name" placeholder="name"/></label>
-    </div>
-    <div>
-        <label>price:<input [(ngModel)]="selectedItem.price" placeholder="price"/></label>
-    </div>
-</div>
+<app-item-detail [item]="selectedItem"></app-item-detail>
