@@ -5,28 +5,33 @@
     width: 15em;
   }
 .items li {
-    cursor: pointer;
     position: relative;
-    left: 0;
+    cursor: pointer;
     background-color: #EEE;
     margin: .5em;
     padding: .3em 0;
     height: 1.6em;
     border-radius: 4px;
 }
+  
 .items li:hover {
     color: #607D8B;
     background-color: #DDD;
     left: .1em;
 }
-.items li.selected {
-    background-color: #CFD8DC;
-    color: white;
+  
+.items a {
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 250px;
 }
-.items li.selected:hover {
-    background-color: #BBD8DC;
-    color: white;
-}
+  
+.items a:hover {
+    color:#607D8B;
+  }
+  
 .items .badge {
     display: inline-block;
     font-size: small;
@@ -38,6 +43,28 @@
     left: -1px;
     top: -4px;
     height: 1.8em;
+    min-width: 16px;
+    text-align: right;
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
+}
+
+.buyButton{
+    display: inline-block;
+    height: auto;
+    
+    background-color:#405061;
+    color: white;
+
+    font-size: small;
+    padding: 0.8em 0.7em 0 0.7em;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: 0;
+    border-radius: 0 4px 4px 0;
 }

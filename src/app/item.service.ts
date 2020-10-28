@@ -13,6 +13,16 @@ export class ItemService {
   
   public getItems(): Observable<Item[]>{
     this.messageService.add("ItemService: fetched items");
-    return of(ITEMS);
+    return of(Object.assign([], ITEMS));
+  }
+
+  public getFreeItems(): Observable<Item[]>{
+    this.messageService.add("ItemService: fetched free items");
+    return of(Object.assign([], ITEMS));
+  }
+
+  getItem(id: number): Observable<Item> {
+    this.messageService.add(`ItemService: fetched item id=${id}`);
+    return of(ITEMS.find(item => item.id === id));
   }
 }

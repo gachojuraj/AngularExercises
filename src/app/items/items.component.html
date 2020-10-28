@@ -1,9 +1,9 @@
 <h2 style="text-align: center;">My Items</h2>
 <ul class="items">
-    <li *ngFor="let item of items"
-      [class.selected]="item === selectedItem"
-      (click)="onSelect(item)">
-      <span class="badge">{{item.id}}</span> {{item.name}}
-    </li>
-  </ul>
-<app-item-detail [item]="selectedItem"></app-item-detail>
+  <li *ngFor="let item of items" style="display: inline-flex;">
+      <a routerLink="/detail-item/{{item.id}}">
+        <span class="badge">{{item.id}}</span> {{item.name}}
+      </a>
+      <span *ngIf="canBuy(item)" class="buyButton" (click)="buyItem(item)">Buy</span>
+  </li>
+</ul>
