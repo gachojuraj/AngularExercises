@@ -9,16 +9,18 @@ import { MessageService } from './message.service';
 })
 export class ItemService {
 
+  
   constructor(private messageService: MessageService) { }
   
   public getItems(): Observable<Item[]>{
     this.messageService.add("ItemService: fetched items");
-    return of(Object.assign([], ITEMS));
+    return of(ITEMS);
   }
-
+  
+  freeItems = Object.assign([], ITEMS);
   public getFreeItems(): Observable<Item[]>{
     this.messageService.add("ItemService: fetched free items");
-    return of(Object.assign([], ITEMS));
+    return of(this.freeItems);
   }
 
   getItem(id: number): Observable<Item> {

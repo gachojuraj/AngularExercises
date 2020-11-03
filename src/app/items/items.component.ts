@@ -4,7 +4,7 @@ import { MessageService } from '../message.service';
 import { ItemService } from '../item.service';
 import { HeroService } from '../hero.service';
 import { Hero } from '../hero'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -14,12 +14,12 @@ import { Observable, of } from 'rxjs';
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
-  freeItems: Item[];
 
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
     private itemService: ItemService,
+    private router: Router,
     private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -41,24 +41,29 @@ export class ItemsComponent implements OnInit {
 
   getItems(): void {
     this.itemService.getItems()
-        .subscribe(items =>{ this.items = items; this.freeItems = items});
+        .subscribe(items =>{ this.items = items});
+    if (this.isHero()) this.itemService.getFreeItems()
+        .subscribe(items =>{ this.items = items});
   }
 
-  hero: Hero;
-  canBuy(item: Item): boolean {
+  isHero(): boolean{
     const id = +this.route.snapshot.paramMap.get('hid');
     if (Number.isNaN(id)) return false;
     if (this.hero === undefined) this.heroService.getHero(id)
       .subscribe(result => this.hero = result);
-    return this.hero.money > item.price;
+    return true;
+  }
+
+  hero: Hero;
+  canBuy(item: Item): boolean {
+    if (this.isHero()) return this.hero.money > item.price;
+    return false;
   }
 
   buyItem(item: Item): void{
     this.hero.money -= item.price;
     this.hero.items.push(item);
-    const index = this.freeItems.indexOf(item);
-    if (index > -1) {
-       this.freeItems.splice(index, 1);
-    }
+    const index = this.items.indexOf(item);
+    if (index > -1) this.items.splice(index, 1);
   }
 }
