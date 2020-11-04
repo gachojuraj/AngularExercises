@@ -3,9 +3,12 @@
     <h2>{{hero.name | uppercase}} Details</h2>
     <div><span>id: </span>{{hero.id}}</div>
     <div>
-      <label>name:
+      <label class="text">name:
         <input [(ngModel)]="hero.name" placeholder="name" style="width: 93%; padding-right: 6.4px;"/>
       </label>
+    </div>
+    <div *ngIf="hero.items.length > 0" style="margin: 0px 0px 5px;" class="text">Owned Items:
+      <div *ngFor="let item of hero.items" style="margin-left: 15px; color: #333">{{ item.name }}</div>
     </div>
     <button (click)="goToStore()" routerLink="/items/{{ hero.id }}" class="buyButton">Buy Item</button>
   </div>
