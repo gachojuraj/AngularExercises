@@ -7,8 +7,15 @@
         <input [(ngModel)]="hero.name" placeholder="name" style="width: 93%; padding-right: 6.4px;"/>
       </label>
     </div>
+    <div>
+      <label class="text">money:
+        <input [(ngModel)]="hero.money" placeholder="money" style="width: 93%; padding-right: 6.4px;"/>
+      </label>
+    </div>
     <div *ngIf="hero.items.length > 0" style="margin: 0px 0px 5px;" class="text">Owned Items:
       <div *ngFor="let item of hero.items" style="margin-left: 15px; color: #333">{{ item.name }}</div>
     </div>
+    <button (click)="save()" class="buyButton">Save</button>
     <button (click)="goToStore()" routerLink="/items/{{ hero.id }}" class="buyButton">Buy Item</button>
+    
   </div>
