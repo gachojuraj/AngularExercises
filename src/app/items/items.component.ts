@@ -14,6 +14,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
+  hero: Hero;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class ItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItems();
+    this.isHero();
   }
 
   getCurrentHero(): Observable<Hero>{
@@ -42,22 +44,29 @@ export class ItemsComponent implements OnInit {
   getItems(): void {
     this.itemService.getItems()
         .subscribe(items =>{ this.items = items});
-    if (this.isHero()) this.itemService.getFreeItems()
-        .subscribe(items =>{ this.items = items});
   }
 
   isHero(): boolean{
     const id = +this.route.snapshot.paramMap.get('hid');
     if (Number.isNaN(id)) return false;
     if (this.hero === undefined) this.heroService.getHero(id)
-      .subscribe(result => this.hero = result);
+      .subscribe(result => this.hero = result)
     return true;
   }
 
-  hero: Hero;
+  
   canBuy(item: Item): boolean {
     if (this.isHero()) return this.hero.money > item.price;
     return false;
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.itemService.addItem({ name } as Item)
+      .subscribe(item => {
+        this.items.push(item);
+      });
   }
 
   buyItem(item: Item): void{
@@ -65,5 +74,6 @@ export class ItemsComponent implements OnInit {
     this.hero.items.push(item);
     const index = this.items.indexOf(item);
     if (index > -1) this.items.splice(index, 1);
+    this.heroService.updateHero(this.hero).subscribe();
   }
 }

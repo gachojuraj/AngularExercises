@@ -1,5 +1,5 @@
 <button (click)="goBack()">go back</button>
-<div *ngIf="item" style="background-color: #EEE; padding: .3em; padding: 0px 0px 8px 8px; border-radius: 4px; margin: 6px">
+<div *ngIf="item" class="item">
     <h2>{{item.name | uppercase}} Details</h2>
     <div><span>id: </span>{{item.id}}</div>
     <div>
@@ -8,4 +8,5 @@
     <div>
         <label>price:<input [(ngModel)]="item.price" placeholder="price" style="width: 90%; padding-right: 6.4px;"/></label>
     </div>
+    <button (click)="save()" class="buyButton">Save</button>
 </div>

@@ -17,13 +17,18 @@ export class ItemDetailComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
-    this.getHero();
+    this.getItem();
   }
 
-  getHero(): void {
+  getItem(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.itemService.getItem(id)
       .subscribe(item => this.item = item);
+  }
+
+  save(): void {
+    this.itemService.updateItem(this.item)
+      .subscribe(() => this.goBack());
   }
 
   goBack(): void {

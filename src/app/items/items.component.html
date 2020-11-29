@@ -1,9 +1,13 @@
 <h2 style="text-align: center;">My Items</h2>
+<div style="max-width: fit-content;">
+  <label>Item name:<input #itemName/></label>
+  <button (click)="add(itemName.value); itemName.value=''">add</button>
+</div>
 <ul class="items">
   <li *ngFor="let item of items" style="display: inline-flex;">
       <a routerLink="/detail-item/{{item.id}}">
         <span class="badge">{{item.id}}</span> {{item.name}}
       </a>
-      <span *ngIf="canBuy(item)" class="buyButton" (click)="buyItem(item)">Buy</span>
+      <span *ngIf="this.hero != null  && canBuy(item)" class="buyButton" (click)="buyItem(item)">Buy</span>
   </li>
 </ul>

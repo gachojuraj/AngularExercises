@@ -1,28 +1,47 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Hero } from './hero';
+
+interface Entity{
+    id: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class InMemoryDataService implements InMemoryDbService{
   createDb() {
     const heroes = [
-      { id: 11, name: 'Dr Nice', money: 300, items: [] },
-      { id: 12, name: 'Narco', money: 300, items: [] },
-      { id: 13, name: 'Bombasto', money: 300, items: [] },
-      { id: 14, name: 'Celeritas', money: 300, items: [] },
-      { id: 15, name: 'Magneta', money: 300, items: [] },
-      { id: 16, name: 'RubberMan', money: 300, items: [] },
-      { id: 17, name: 'Dynama', money: 300, items: [] },
-      { id: 18, name: 'Dr IQ', money: 300, items: [] },
-      { id: 19, name: 'Magma', money: 300, items: [] },
-      { id: 20, name: 'Tornado', money: 300, items: [] }
+      { id: 1, name: 'Dr Nice', money: 300, items: [] },
+      { id: 2, name: 'Narco', money: 300, items: [] },
+      { id: 3, name: 'Bombasto', money: 300, items: [] },
+      { id: 4, name: 'Celeritas', money: 300, items: [] },
+      { id: 5, name: 'Magneta', money: 300, items: [] },
+      { id: 6, name: 'RubberMan', money: 300, items: [] },
+      { id: 7, name: 'Dynama', money: 300, items: [] },
+      { id: 8, name: 'Dr IQ', money: 300, items: [] },
+      { id: 9, name: 'Magma', money: 300, items: [] },
+      { id: 0, name: 'Tornado', money: 300, items: [] }
     ];
-    return {heroes};
+
+    const items = [
+      { id: 1, name: 'Wooden Sword', price: 7 },
+      { id: 2, name: 'Fancy Hat', price: 130 },
+      { id: 3, name: 'Fast Boots', price: 90 },
+      { id: 4, name: 'Magic Book', price: 84 },
+      { id: 5, name: 'Heal Potion', price: 50 },
+      { id: 6, name: 'Bowling Ball', price: 23 },
+      { id: 7, name: 'Soda Can', price: 10 },
+      { id: 8, name: 'Paper Plane', price: 3 },
+      { id: 9, name: 'Pencil', price: 14 },
+      { id: 10, name: 'Water Gun', price: 74 }
+    ];
+    return {heroes, items};
   }
-  genId(heroes: Hero[]): number {
-    return heroes.length > 0 ? Math.max(...heroes.map(hero => hero.id)) + 1 : 11;
+
+  genId(list: Entity[]): number {
+    return list.length > 0 ? Math.max(...list.map(entity => entity.id)) + 1 : 1;
   }
+  
   constructor() { }
 }
