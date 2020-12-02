@@ -3,13 +3,25 @@ import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
 
+enum SortBy { ID = "Id", NAME = "Name", MONEY = "Money" };
+class dropDownMenu{
+  selected: any;
+  descending: boolean = false;
+  show: boolean = false;
+  options: any;
+  constructor(options : any){
+    this.options = Object.values(options);
+    this.selected = this.options[0];
+  }
+}
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-
+  dropdown: dropDownMenu = new dropDownMenu(SortBy);
   heroes: Hero[];
 
   constructor(private heroService: HeroService, private messageService: MessageService) { }
@@ -35,5 +47,20 @@ export class HeroesComponent implements OnInit {
   delete(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h !== hero);
     this.heroService.deleteHero(hero).subscribe();
+  }
+
+  sortBy(sortBy : SortBy, descending : boolean){
+    switch (sortBy){
+      case SortBy.ID:
+        this.heroes.sort((a, b) => a.id - b.id);
+        break;
+      case SortBy.MONEY:
+        this.heroes.sort((a, b) => a.money - b.money);
+        break;
+      case SortBy.NAME:
+        this.heroes.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+    }
+    if (descending) this.heroes.reverse();
   }
 }

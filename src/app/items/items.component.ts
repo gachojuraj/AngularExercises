@@ -7,6 +7,18 @@ import { Hero } from '../hero'
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
+enum SortBy { ID = "Id", NAME = "Name", PRICE = "Price" };
+class dropDownMenu{
+  selected: any;
+  descending: boolean = false;
+  show: boolean = false;
+  options: any;
+  constructor(options : any){
+    this.options = Object.values(options);
+    this.selected = this.options[0];
+  }
+}
+
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
@@ -15,6 +27,7 @@ import { Observable, of } from 'rxjs';
 export class ItemsComponent implements OnInit {
   items: Item[];
   hero: Hero;
+  dropdown: dropDownMenu = new dropDownMenu(SortBy);
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +39,21 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.getItems();
     this.isHero();
+  }
+
+  sortBy(sortBy : SortBy, descending : boolean){
+    switch (sortBy){
+      case SortBy.ID:
+        this.items.sort((a, b) => a.id - b.id);
+        break;
+      case SortBy.PRICE:
+        this.items.sort((a, b) => a.price - b.price);
+        break;
+      case SortBy.NAME:
+        this.items.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+    }
+    if (descending) this.items.reverse();
   }
 
   getCurrentHero(): Observable<Hero>{
@@ -67,6 +95,11 @@ export class ItemsComponent implements OnInit {
       .subscribe(item => {
         this.items.push(item);
       });
+  }
+
+  delete(item: Item): void {
+    this.items = this.items.filter(e => e !== item);
+    this.itemService.deleteItem(item).subscribe();
   }
 
   buyItem(item: Item): void{

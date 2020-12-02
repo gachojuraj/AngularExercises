@@ -15,7 +15,7 @@ export class ItemService {
   constructor(private messageService: MessageService, private http: HttpClient) { }
 
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`ItemService: ${message}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

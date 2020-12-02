@@ -1,13 +1,20 @@
 <h2 style="text-align: center;">My Items</h2>
+<app-item-search></app-item-search>
 <div style="max-width: fit-content;">
   <label>Item name:<input #itemName/></label>
   <button (click)="add(itemName.value); itemName.value=''">add</button>
 </div>
 <ul class="items">
-  <li *ngFor="let item of items" style="display: inline-flex;">
+  <button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
+  <div *ngIf="dropdown.show">
+    <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
+    <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
+  </div>
+  <li *ngFor="let item of items" style="display: inline-flex">
       <a routerLink="/detail-item/{{item.id}}">
         <span class="badge">{{item.id}}</span> {{item.name}}
       </a>
+      <button class="delete" title="delete item" (click)="delete(item)">x</button>
       <span *ngIf="this.hero != null  && canBuy(item)" class="buyButton" (click)="buyItem(item)">Buy</span>
   </li>
 </ul>
