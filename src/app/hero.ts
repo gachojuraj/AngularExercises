@@ -5,4 +5,6 @@ export interface Hero {
     name: string;
     money: number;
     items?: Item[];
+    life: number;
+    strength: number;
   }

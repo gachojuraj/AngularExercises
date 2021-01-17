@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
+import { MatDialog } from '@angular/material/dialog'
+import { HeroFormComponent } from '../hero-form/hero-form.component'
 
 enum SortBy { ID = "Id", NAME = "Name", MONEY = "Money" };
 class dropDownMenu{
@@ -24,7 +26,7 @@ export class HeroesComponent implements OnInit {
   dropdown: dropDownMenu = new dropDownMenu(SortBy);
   heroes: Hero[];
 
-  constructor(private heroService: HeroService, private messageService: MessageService) { }
+  constructor(private heroService: HeroService, private messageService: MessageService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -62,5 +64,20 @@ export class HeroesComponent implements OnInit {
         break;
     }
     if (descending) this.heroes.reverse();
+  }
+
+
+  name: string;
+  showHeroForm(){
+    const dialogRef = this.dialog.open(HeroFormComponent, {
+      width: '250px',
+      data: {name: this.name}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.heroService.addHero({name: result.name, money: result.money, life: result.life, strength: result.strength } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+    });
   }
 }

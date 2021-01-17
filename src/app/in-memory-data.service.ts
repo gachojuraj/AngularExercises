@@ -12,16 +12,16 @@ interface Entity{
 export class InMemoryDataService implements InMemoryDbService{
   createDb() {
     const heroes = [
-      { id: 1, name: 'Dr Nice', money: 300, items: [] },
-      { id: 2, name: 'Narco', money: 300, items: [] },
-      { id: 3, name: 'Bombasto', money: 300, items: [] },
-      { id: 4, name: 'Celeritas', money: 300, items: [] },
-      { id: 5, name: 'Magneta', money: 300, items: [] },
-      { id: 6, name: 'RubberMan', money: 300, items: [] },
-      { id: 7, name: 'Dynama', money: 300, items: [] },
-      { id: 8, name: 'Dr IQ', money: 300, items: [] },
-      { id: 9, name: 'Magma', money: 300, items: [] },
-      { id: 0, name: 'Tornado', money: 300, items: [] }
+      { id: 1, name: 'Dr Nice', money: 300, items: [], life: 10, strength: 10 },
+      { id: 2, name: 'Narco', money: 300, items: [], life: 10, strength: 10 },
+      { id: 3, name: 'Bombasto', money: 300, items: [], life: 10, strength: 10 },
+      { id: 4, name: 'Celeritas', money: 300, items: [], life: 10, strength: 10 },
+      { id: 5, name: 'Magneta', money: 300, items: [], life: 10, strength: 10 },
+      { id: 6, name: 'RubberMan', money: 300, items: [], life: 10, strength: 10 },
+      { id: 7, name: 'Dynama', money: 300, items: [], life: 10, strength: 10 },
+      { id: 8, name: 'Dr IQ', money: 300, items: [], life: 10, strength: 10 },
+      { id: 9, name: 'Magma', money: 300, items: [], life: 10, strength: 10 },
+      { id: 0, name: 'Tornado', money: 300, items: [], life: 10, strength: 10 }
     ];
 
     const items = [

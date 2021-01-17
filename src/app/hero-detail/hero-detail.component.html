@@ -12,6 +12,16 @@
         <input [(ngModel)]="hero.money" placeholder="money" style="width: 93%; padding-right: 6.4px;"/>
       </label>
     </div>
+    <div>
+      <label class="text">life:
+        <input [(ngModel)]="hero.life" placeholder="life" style="width: 93%; padding-right: 6.4px;"/>
+      </label>
+    </div>
+    <div>
+      <label class="text">strength:
+        <input [(ngModel)]="hero.strength" placeholder="strength" style="width: 93%; padding-right: 6.4px;"/>
+      </label>
+    </div>
     <div *ngIf="hero.items.length > 0" style="margin: 0px 0px 5px;" class="text">Owned Items:
       <div *ngFor="let item of hero.items" style="margin-left: 15px; color: #333">{{ item.name }}</div>
     </div>
