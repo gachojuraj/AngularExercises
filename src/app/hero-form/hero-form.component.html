@@ -1,24 +1,27 @@
 <h1 mat-dialog-title>Create Hero</h1>
 <div mat-dialog-content>
-  <p>Name</p>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name" autocomplete="off" required> 
+    <input matInput [formControl]="name" autocomplete="off" required>
+    <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Money</mat-label>
-    <input matInput [(ngModel)]="data.money" autocomplete="off" required>
+    <input matInput [formControl]="money" autocomplete="off" required>
+    <mat-error *ngIf="this.money.errors != null">{{getErrorMessage(money)}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Life</mat-label>
-    <input matInput [(ngModel)]="data.life" autocomplete="off" required>
+    <input matInput [formControl]="life" autocomplete="off" required>
+    <mat-error *ngIf="this.life.errors != null">{{getErrorMessage(life)}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Strength</mat-label>
-    <input matInput [(ngModel)]="data.strength" autocomplete="off" required>
+    <input matInput [formControl]="strength" autocomplete="off" required>
+    <mat-error *ngIf="this.strength.errors != null">{{getErrorMessage(strength)}}</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="this.dialogRef.close();">Cancel</button>
-  <button mat-raised-button [disabled]="" (click)="this.dialogRef.close(data);">Create Hero</button>
+  <button mat-stroked-button (click)="this.dialogRef.close();">Cancel</button>
+  <button mat-stroked-button color="primary" [disabled]="!isValid()" (click)="submit()">Create Hero</button>
 </div>

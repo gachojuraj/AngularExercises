@@ -67,14 +67,13 @@ export class HeroesComponent implements OnInit {
   }
 
 
-  name: string;
   showHeroForm(){
     const dialogRef = this.dialog.open(HeroFormComponent, {
-      width: '250px',
-      data: {name: this.name}
+      width: '250px', data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.heroService.addHero({name: result.name, money: result.money, life: result.life, strength: result.strength } as Hero)
+      if (result !== undefined)
+      this.heroService.addHero({name: result.name, money: result.money, life: result.life, strength: result.strength, items: [] } as Hero)
       .subscribe(hero => {
         this.heroes.push(hero);
       });
