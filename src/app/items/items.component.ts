@@ -6,6 +6,8 @@ import { HeroService } from '../hero.service';
 import { Hero } from '../hero'
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ItemFormComponent } from '../item-form/item-form.component';
 
 enum SortBy { ID = "Id", NAME = "Name", PRICE = "Price" };
 class dropDownMenu{
@@ -34,11 +36,11 @@ export class ItemsComponent implements OnInit {
     private heroService: HeroService,
     private itemService: ItemService,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getItems();
-    this.isHero();
   }
 
   sortBy(sortBy : SortBy, descending : boolean){
@@ -56,22 +58,12 @@ export class ItemsComponent implements OnInit {
     if (descending) this.items.reverse();
   }
 
-  getCurrentHero(): Observable<Hero>{
-    let hero: Hero;
-    this.route.params.subscribe(params => {
-      let id = params['hid'];
-      if (id === "list"){
-        this.getItems();
-        return of(undefined);
-      } 
-      else this.heroService.getHero(id).subscribe(result => hero = result);
-    });
-    return of(hero);
-  }
-
   getItems(): void {
     this.itemService.getItems()
-        .subscribe(items =>{ this.items = items});
+        .subscribe(items =>{ 
+          this.items = items;
+          if (this.isHero()) this.items = this.items.filter((el: Item) => { return !el.isOwned });
+        });
   }
 
   isHero(): boolean{
@@ -105,8 +97,23 @@ export class ItemsComponent implements OnInit {
   buyItem(item: Item): void{
     this.hero.money -= item.price;
     this.hero.items.push(item);
+    item.isOwned = true;
     const index = this.items.indexOf(item);
     if (index > -1) this.items.splice(index, 1);
     this.heroService.updateHero(this.hero).subscribe();
+    this.itemService.updateItem(item).subscribe();
+  }
+
+  showItemForm(){
+    const dialogRef = this.dialog.open(ItemFormComponent, {
+      width: '250px', data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined)
+      this.itemService.addItem({name: result.name, price: result.price} as Item)
+      .subscribe(item => {
+        this.items.push(item);
+      });
+    });
   }
 }

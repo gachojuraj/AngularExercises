@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Create Item</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [formControl]="name" autocomplete="off" required maxlength="20">
+    <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput [formControl]="price" autocomplete="off" required>
+    <mat-error *ngIf="this.price.errors != null">{{getErrorMessage(price)}}</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="this.dialogRef.close();">Cancel</button>
+  <button mat-stroked-button color="primary" [disabled]="!isValid()" (click)="submit()">Create Item</button>
+</div>

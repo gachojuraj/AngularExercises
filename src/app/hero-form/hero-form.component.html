@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [formControl]="name" autocomplete="off" required>
+    <input matInput [formControl]="name" autocomplete="off" required maxlength="20">
     <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
   </mat-form-field>
   <mat-form-field>

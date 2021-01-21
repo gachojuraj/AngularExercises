@@ -25,16 +25,16 @@ export class InMemoryDataService implements InMemoryDbService{
     ];
 
     const items = [
-      { id: 1, name: 'Wooden Sword', price: 7 },
-      { id: 2, name: 'Fancy Hat', price: 130 },
-      { id: 3, name: 'Fast Boots', price: 90 },
-      { id: 4, name: 'Magic Book', price: 84 },
-      { id: 5, name: 'Heal Potion', price: 50 },
-      { id: 6, name: 'Bowling Ball', price: 23 },
-      { id: 7, name: 'Soda Can', price: 10 },
-      { id: 8, name: 'Paper Plane', price: 3 },
-      { id: 9, name: 'Pencil', price: 14 },
-      { id: 10, name: 'Water Gun', price: 74 }
+      { id: 1, name: 'Wooden Sword', price: 7, isOwned: false },
+      { id: 2, name: 'Fancy Hat', price: 130, isOwned: false },
+      { id: 3, name: 'Fast Boots', price: 90, isOwned: false },
+      { id: 4, name: 'Magic Book', price: 84, isOwned: false },
+      { id: 5, name: 'Heal Potion', price: 50, isOwned: false },
+      { id: 6, name: 'Bowling Ball', price: 23, isOwned: false },
+      { id: 7, name: 'Soda Can', price: 10, isOwned: false },
+      { id: 8, name: 'Paper Plane', price: 3, isOwned: false },
+      { id: 9, name: 'Pencil', price: 14, isOwned: false },
+      { id: 10, name: 'Water Gun', price: 74, isOwned: false }
     ];
     return {heroes, items};
   }

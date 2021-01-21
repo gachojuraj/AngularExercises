@@ -1,11 +1,9 @@
 <h2 style="text-align: center;">My Items</h2>
 <app-item-search></app-item-search>
-<div style="max-width: fit-content;">
-  <label>Item name:<input #itemName/></label>
-  <button (click)="add(itemName.value); itemName.value=''">add</button>
-</div>
+
 <ul class="items">
   <button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
+  <button (click)="showItemForm()">Create Item</button>
   <div *ngIf="dropdown.show">
     <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
     <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
