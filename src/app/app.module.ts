@@ -22,6 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     HeroSearchComponent,
     ItemSearchComponent,
     HeroFormComponent,
-    ItemFormComponent 
+    ItemFormComponent,
+    LoginFormComponent 
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { ItemFormComponent } from './item-form/item-form.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

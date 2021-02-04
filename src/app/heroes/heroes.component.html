@@ -1,7 +1,7 @@
 <h2 style="text-align: center;">My Heroes</h2>
 <ul class="heroes">
   <button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
-  <button (click)="showHeroForm()">Create Hero</button>
+  <button (click)="showHeroForm()" *ngIf="authService.isAdmin()">Create Hero</button>
   <div *ngIf="dropdown.show">
     <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
     <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
@@ -10,6 +10,6 @@
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> {{hero.name}}
     </a>
-    <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+    <button class="delete" title="delete hero" *ngIf="authService.isAdmin()" (click)="delete(hero)">x</button>
   </li>
 </ul>

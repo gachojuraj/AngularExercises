@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ItemFormComponent } from '../item-form/item-form.component';
+import { AuthService } from '../auth.service';
 
 enum SortBy { ID = "Id", NAME = "Name", PRICE = "Price" };
 class dropDownMenu{
@@ -37,7 +38,8 @@ export class ItemsComponent implements OnInit {
     private itemService: ItemService,
     private router: Router,
     private messageService: MessageService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+     public authService: AuthService) { }
 
   ngOnInit(): void {
     this.getItems();

@@ -36,7 +36,13 @@ export class InMemoryDataService implements InMemoryDbService{
       { id: 9, name: 'Pencil', price: 14, isOwned: false },
       { id: 10, name: 'Water Gun', price: 74, isOwned: false }
     ];
-    return {heroes, items};
+
+    const users = [
+      { id: 1, userName: 'admin', passwordHash: 92668751, privilages: 2 },
+      { id: 2, userName: 'user', passwordHash: 3599307, privilages: 1 }
+    ];
+
+    return {heroes, items, users};
   }
 
   genId(list: Entity[]): number {

@@ -4,6 +4,7 @@ import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
 import { MatDialog } from '@angular/material/dialog'
 import { HeroFormComponent } from '../hero-form/hero-form.component'
+import { AuthService } from '../auth.service';
 
 enum SortBy { ID = "Id", NAME = "Name", MONEY = "Money" };
 class dropDownMenu{
@@ -26,7 +27,7 @@ export class HeroesComponent implements OnInit {
   dropdown: dropDownMenu = new dropDownMenu(SortBy);
   heroes: Hero[];
 
-  constructor(private heroService: HeroService, private messageService: MessageService, public dialog: MatDialog) { }
+  constructor(private heroService: HeroService, private messageService: MessageService, public dialog: MatDialog, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.getHeroes();

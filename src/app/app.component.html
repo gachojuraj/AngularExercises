@@ -10,3 +10,11 @@
   <router-outlet></router-outlet>
 </div>
 <app-messages style="position: absolute;"></app-messages>
+<div>
+
+<div style="position: absolute; right: 10px; top: 10px;">
+  <div style="font-size: 25px; display: inline-block; margin-right: 15px;">{{authService.getName()}}</div>
+  <button mat-fab color="primary" (click)="authService.showLoginForm(false)">
+    <mat-icon>perm_identity</mat-icon>
+  </button>
+</div>
