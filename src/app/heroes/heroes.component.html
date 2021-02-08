@@ -1,15 +1,41 @@
 <h2 style="text-align: center;">My Heroes</h2>
-<ul class="heroes">
-  <button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
-  <button (click)="showHeroForm()" *ngIf="authService.isAdmin()">Create Hero</button>
-  <div *ngIf="dropdown.show">
-    <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
-    <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
-  </div>
-  <li *ngFor="let hero of heroes">
-    <a routerLink="/detail/{{hero.id}}">
-      <span class="badge">{{hero.id}}</span> {{hero.name}}
-    </a>
-    <button class="delete" title="delete hero" *ngIf="authService.isAdmin()" (click)="delete(hero)">x</button>
-  </li>
-</ul>
+<button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
+<button (click)="showHeroForm()" *ngIf="authService.isAdmin()">Create Hero</button>
+<div *ngIf="dropdown.show">
+  <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
+  <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
+</div>
+
+<div style="margin-top: 10px;">
+  <mat-accordion>
+  <mat-expansion-panel hideToggle *ngFor="let hero of heroes">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{hero.name}}</mat-panel-title>
+      <mat-panel-description>
+        <mat-icon routerLink="/items/{{ hero.id }}">shopping_cart</mat-icon>
+        <div *ngIf="authService.isAdmin()">
+          <mat-icon routerLink="/detail/{{hero.id}}">edit</mat-icon>
+          <mat-icon (click)="delete(hero)">delete</mat-icon>
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>Money: {{hero.money}}</div>
+    <div>Life: {{hero.life}}</div>
+    <div>Strenght: {{hero.strength}}</div>
+    <ul style="list-style-type: none; padding: 0px;">Owned Items:
+      <li *ngIf="hero.items == 0">This hero has no items</li>
+      <li *ngFor="let item of hero.items">{{item.name}}</li>
+    </ul>
+  </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<div id="chart" *ngIf="this.heroes != undefined">Life chart:
+  <apx-chart style="font-size: 10px;"
+    [series] = "chartOptions.series"
+    [chart] = "chartOptions.chart"
+    [labels] = "chartOptions.labels"
+    [responsive] ="chartOptions.responsive"
+    [dataLabels] = "chartOptions.dataLabels"
+  ></apx-chart>
+</div>

@@ -24,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ItemFormComponent } from './item-form/item-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 
 @NgModule({
@@ -39,7 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     ItemSearchComponent,
     HeroFormComponent,
     ItemFormComponent,
-    LoginFormComponent 
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,9 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

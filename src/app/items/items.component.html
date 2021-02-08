@@ -1,18 +1,27 @@
 <h2 style="text-align: center;">My Items</h2>
 <app-item-search></app-item-search>
 
-<ul class="items">
-  <button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
-  <button (click)="showItemForm()" *ngIf="authService.isAdmin()">Create Item</button>
-  <div *ngIf="dropdown.show">
-    <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
-    <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
-  </div>
-  <li *ngFor="let item of items" style="display: inline-flex">
-      <a routerLink="/detail-item/{{item.id}}">
-        <span class="badge">{{item.id}}</span> {{item.name}}
-      </a>
-      <button *ngIf="authService.isAdmin()" class="delete" title="delete item" (click)="delete(item)">x</button>
-      <span *ngIf="this.hero != null  && canBuy(item)" class="buyButton" (click)="buyItem(item)">Buy</span>
-  </li>
-</ul>
+<button (click)="dropdown.show = !dropdown.show" [style.background-color]="dropdown.show === true ? '#aaa' : '#eee'">Sort By</button>
+<button (click)="showItemForm()" *ngIf="authService.isAdmin()">Create Item</button>
+<div *ngIf="dropdown.show">
+  <button *ngFor="let option of dropdown.options" [style.background-color]="dropdown.selected === option ? '#aaa' : '#eee'" (click)="sortBy(option, dropdown.descending); dropdown.selected = option">{{option}}</button>
+  <button (click)="dropdown.descending = !dropdown.descending; sortBy(dropdown.selected, dropdown.descending);">{{dropdown.descending ? "Descending" : "Ascending"}}</button>
+</div>
+  
+<div style="margin-top: 10px;">
+<mat-accordion>
+  <mat-expansion-panel hideToggle *ngFor="let item of items">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{item.name}}</mat-panel-title>
+      <mat-panel-description>
+        <mat-icon *ngIf="this.hero != null  && canBuy(item)" (click)="buyItem(item)">shopping_cart</mat-icon>
+        <div *ngIf="authService.isAdmin()">
+          <mat-icon routerLink="/detail-item/{{item.id}}">edit</mat-icon>
+          <mat-icon (click)="delete(item)">delete</mat-icon>
+        </div>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>Price: {{item.price}}</div>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>

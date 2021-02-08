@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { MessageService } from '../message.service';
 import { MatDialog } from '@angular/material/dialog'
 import { HeroFormComponent } from '../hero-form/hero-form.component'
 import { AuthService } from '../auth.service';
+import { ApexNonAxisChartSeries, ApexResponsive, ApexChart, ChartComponent, ApexDataLabels} from "ng-apexcharts";
 
 enum SortBy { ID = "Id", NAME = "Name", MONEY = "Money" };
 class dropDownMenu{
@@ -18,12 +19,22 @@ class dropDownMenu{
   }
 }
 
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+  dataLabels: ApexDataLabels;
+};
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
+  @ViewChild("chart", { static: false }) chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
   dropdown: dropDownMenu = new dropDownMenu(SortBy);
   heroes: Hero[];
 
@@ -35,7 +46,10 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes()
-        .subscribe(heroes => this.heroes = heroes);
+        .subscribe(heroes =>{
+          this.heroes = heroes;
+          this.createChart();
+        });
   }
 
   add(name: string): void {
@@ -79,5 +93,35 @@ export class HeroesComponent implements OnInit {
         this.heroes.push(hero);
       });
     });
+  }
+
+  
+  createChart(){
+    this.chartOptions = {
+      series: this.heroes.map(h => h.life),
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: this.heroes.map(h => h.name),
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ],
+      dataLabels: {
+        formatter: function (val, opts) {
+          return opts.w.config.series[opts.seriesIndex]
+        },
+      },
+    };
   }
 }
