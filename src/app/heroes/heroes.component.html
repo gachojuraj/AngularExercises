@@ -30,7 +30,7 @@
   </mat-accordion>
 </div>
 
-<div id="chart" *ngIf="this.heroes != undefined">Life chart:
+<div id="chart" *ngIf="this.heroes">Life chart:
   <apx-chart style="font-size: 10px;"
     [series] = "chartOptions.series"
     [chart] = "chartOptions.chart"

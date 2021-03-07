@@ -2,13 +2,13 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [formControl]="name" autocomplete="off" required maxlength="20">
-    <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
+    <input matInput [formControl]="itemForm.get('name')" autocomplete="off" required maxlength="20">
+    <mat-error *ngIf="itemForm.get('name').errors != null">{{getErrorMessage(itemForm.get('name'))}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput [formControl]="price" autocomplete="off" required>
-    <mat-error *ngIf="this.price.errors != null">{{getErrorMessage(price)}}</mat-error>
+    <input matInput [formControl]="itemForm.get('price')" autocomplete="off" required>
+    <mat-error *ngIf="itemForm.get('price').errors != null">{{getErrorMessage(itemForm.get('price'))}}</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

@@ -2,13 +2,13 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [formControl]="name" autocomplete="off" required>
-    <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
+    <input matInput [formControl]="loginForm.get('name')" autocomplete="off" required>
+    <mat-error *ngIf="loginForm.get('name').errors != null">{{getErrorMessage(loginForm.get('name'))}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Password</mat-label>
-    <input matInput type="password" [formControl]="password" autocomplete="off" required>
-    <mat-error *ngIf="this.password.errors != null">{{getErrorMessage(password)}}</mat-error>
+    <input matInput type="password" [formControl]="loginForm.get('password')" autocomplete="off" required>
+    <mat-error *ngIf="loginForm.get('password').errors != null">{{getErrorMessage(loginForm.get('password'))}}</mat-error>
   </mat-form-field>
   <mat-error *ngIf="this.data.incorrect">Incorrect username or password!</mat-error>
 </div>

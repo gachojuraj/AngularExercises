@@ -2,23 +2,23 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput [formControl]="name" autocomplete="off" required maxlength="20">
-    <mat-error *ngIf="this.name.errors != null">{{getErrorMessage(name)}}</mat-error>
+    <input matInput [formControl]="heroForm.get('name')" autocomplete="off" required maxlength="20">
+    <mat-error *ngIf="heroForm.get('name').errors != null">{{getErrorMessage(heroForm.get('name'))}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Money</mat-label>
-    <input matInput [formControl]="money" autocomplete="off" required>
-    <mat-error *ngIf="this.money.errors != null">{{getErrorMessage(money)}}</mat-error>
+    <input matInput [formControl]="heroForm.get('money')" autocomplete="off" required>
+    <mat-error *ngIf="heroForm.get('money').errors != null">{{getErrorMessage(heroForm.get('money'))}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Life</mat-label>
-    <input matInput [formControl]="life" autocomplete="off" required>
-    <mat-error *ngIf="this.life.errors != null">{{getErrorMessage(life)}}</mat-error>
+    <input matInput [formControl]="heroForm.get('life')" autocomplete="off" required>
+    <mat-error *ngIf="heroForm.get('life').errors != null">{{getErrorMessage(heroForm.get('life'))}}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Strength</mat-label>
-    <input matInput [formControl]="strength" autocomplete="off" required>
-    <mat-error *ngIf="this.strength.errors != null">{{getErrorMessage(strength)}}</mat-error>
+    <input matInput [formControl]="heroForm.get('strength')" autocomplete="off" required>
+    <mat-error *ngIf="heroForm.get('strength').errors != null">{{getErrorMessage(heroForm.get('strength'))}}</mat-error>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

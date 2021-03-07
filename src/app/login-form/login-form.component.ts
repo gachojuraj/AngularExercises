@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
@@ -14,12 +14,18 @@ export interface DialogData {
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  name: FormControl = new FormControl('', [Validators.required]);
-  password: FormControl = new FormControl('', [Validators.required]);
-
   constructor(public dialogRef: MatDialogRef<LoginFormComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
+  public loginForm;
+  private createForm(){
+    this.loginForm = new FormGroup({
+      'name': new FormControl(),
+      'password': new FormControl()
+    }, { validators: Validators.required });
+  }
+
   ngOnInit(): void {
+    this.createForm();
     if (!String.prototype.hasOwnProperty('hashCode')) Object.defineProperty(String.prototype, 'hashCode', {
       value: function() {
         var hash = 0, i, chr;
@@ -35,8 +41,8 @@ export class LoginFormComponent implements OnInit {
 
   submit(force: boolean = false){
     if (!force){
-      this.data.name = this.name.value;
-      this.data.passwordHash = this.password.value.hashCode();
+      this.data.name = this.loginForm.get("name").value;
+      this.data.passwordHash = this.loginForm.get("password").value.hashCode();
     }
     else{
       this.data.name = "admin";
@@ -47,10 +53,10 @@ export class LoginFormComponent implements OnInit {
   }
   
   isValid(): boolean{
-    return (this.name.errors == null && this.password.errors == null)
+    return (this.loginForm.get('name').errors == null && this.loginForm.get('password').errors == null)
   }
 
   getErrorMessage(param: any){
-    if (param.hasError('required')) return 'You must enter a value';
+    if (param.errors.required) return 'You must enter a value';
   }
 }

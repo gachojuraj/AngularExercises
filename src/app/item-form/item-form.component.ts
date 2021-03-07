@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
@@ -13,27 +13,32 @@ export interface DialogData {
   styleUrls: ['./item-form.component.css']
 })
 export class ItemFormComponent implements OnInit {
-  name: FormControl = new FormControl('', [Validators.required]);
-  price: FormControl = new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$")]);
-
   constructor(public dialogRef: MatDialogRef<ItemFormComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
+  public itemForm;
+  private createForm(){
+    this.itemForm = new FormGroup({
+      'name': new FormControl(),
+      'price': new FormControl('', [Validators.pattern("^[0-9]*$")])
+    }, { validators: Validators.required });
+  }
+
   ngOnInit(): void {
+    this.createForm();
   }
 
   submit(){
-    this.data.name = this.name.value;
-    this.data.price = this.price.value;
+    this.data.name = this.itemForm.get("name").value;
+    this.data.price = this.itemForm.get("price").value;
     this.dialogRef.close(this.data);
   }
   
   isValid(): boolean{
-    return (this.name.errors == null && this.price.errors == null);
+    return (this.itemForm.get("name").errors == null && this.itemForm.get("price").errors == null);
   }
 
   getErrorMessage(param: any){
-    if (param.hasError('required')) return 'You must enter a value';
-    if (param.hasError('max')) return 'You must enter a value between 0-10';
-    if (param.hasError('pattern')) return 'You must enter a numeric value';
+    if (param.errors.required) return 'You must enter a value';
+    if (param.errors.pattern) return 'You must enter a numeric value';
   }
 }
